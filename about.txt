@@ -1,0 +1,195 @@
+==============================================================
+   💳 CREDIT CARD FRAUD DETECTION — PROJECT README
+==============================================================
+  A Beginner-Friendly Machine Learning Project in Python
+  Author  : Prajwal B
+  Dataset : creditcard.csv (Kaggle — mlg-ulb/creditcardfraud)
+==============================================================
+
+
+--------------------------------------------------------------
+ 📌 PROJECT OVERVIEW
+--------------------------------------------------------------
+This project builds a Machine Learning model to detect
+fraudulent credit card transactions using Logistic Regression.
+
+The dataset is highly imbalanced — only ~0.17% of transactions
+are fraud. We handle this using class_weight='balanced'.
+
+Goal : Classify each transaction as FRAUD (1) or NOT FRAUD (0)
+Model: Logistic Regression (sklearn)
+Lang : Python 3.x
+
+
+--------------------------------------------------------------
+ 📂 PROJECT STRUCTURE
+--------------------------------------------------------------
+  credit_card_fraud_detection.ipynb  → Main Jupyter Notebook
+  creditcard.csv                     → Dataset (download separately)
+  README_CreditCardFraudDetection.txt → This file
+
+
+--------------------------------------------------------------
+ 📦 DATASET DETAILS
+--------------------------------------------------------------
+  Source   : Kaggle
+  URL      : https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+  File     : creditcard.csv
+  Size     : ~144 MB
+  Rows     : 284,807 transactions
+  Columns  : 31
+
+  Features:
+    - Time    : Seconds elapsed since first transaction
+    - V1–V28  : Anonymized PCA-transformed features
+    - Amount  : Transaction amount in euros
+    - Class   : Target label → 0 = Legitimate, 1 = Fraud
+
+  Class Distribution:
+    - Legitimate (0) : 284,315  (99.83%)
+    - Fraud      (1) :     492  ( 0.17%)
+    ⚠️  Highly Imbalanced Dataset!
+
+
+--------------------------------------------------------------
+ ⬇️  HOW TO DOWNLOAD THE DATASET
+--------------------------------------------------------------
+
+  OPTION 1 — Kaggle API (Recommended)
+  ------------------------------------
+  Step 1: pip install kaggle
+  Step 2: Go to kaggle.com → Account → Create New API Token
+          (downloads kaggle.json)
+  Step 3: Place kaggle.json:
+            Windows : %USERPROFILE%\.kaggle\kaggle.json
+            Mac/Linux: ~/.kaggle/kaggle.json
+  Step 4: Run in terminal:
+            kaggle datasets download -d mlg-ulb/creditcardfraud --unzip
+
+  OPTION 2 — Manual Download
+  ---------------------------
+  1. Visit: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+  2. Click the Download button
+  3. Unzip and place creditcard.csv in the same folder as the notebook
+
+  OPTION 3 — Google Colab
+  ------------------------
+  !pip install kaggle -q
+  from google.colab import files
+  files.upload()   # upload your kaggle.json
+  !mkdir -p ~/.kaggle && cp kaggle.json ~/.kaggle/ && chmod 600 ~/.kaggle/kaggle.json
+  !kaggle datasets download -d mlg-ulb/creditcardfraud --unzip
+
+
+--------------------------------------------------------------
+ 🛠️  REQUIREMENTS / DEPENDENCIES
+--------------------------------------------------------------
+  Python  : 3.7 or above
+  pandas  : pip install pandas
+  numpy   : pip install numpy
+  sklearn : pip install scikit-learn
+
+  Install all at once:
+    pip install pandas numpy scikit-learn
+
+  For Jupyter Notebook:
+    pip install notebook
+    jupyter notebook
+
+
+--------------------------------------------------------------
+ ▶️  HOW TO RUN
+--------------------------------------------------------------
+  1. Download and place creditcard.csv in the project folder
+  2. Install dependencies (see above)
+  3. Open terminal in the project folder and run:
+       jupyter notebook
+  4. Open: credit_card_fraud_detection.ipynb
+  5. Click "Run All Cells" (Kernel → Restart & Run All)
+  6. The notebook runs top-to-bottom without errors ✅
+
+
+--------------------------------------------------------------
+ 📋 NOTEBOOK SECTIONS
+--------------------------------------------------------------
+  Step 1 → Import Libraries
+  Step 2 → Load Dataset
+  Step 3 → Basic Data Exploration
+             - First 5 rows (.head())
+             - Dataset info (.info())
+             - Missing value check
+             - Class distribution with percentages
+  Step 4 → Preprocessing
+             - Define X (features) and y (target)
+             - Train-Test Split (80/20, stratify=y)
+  Step 5 → Train Model
+             - Logistic Regression
+             - class_weight='balanced'
+             - max_iter=1000
+  Step 6 → Model Evaluation
+             - Accuracy Score
+             - Confusion Matrix (labelled)
+             - Classification Report (Precision, Recall, F1)
+  Step 7 → Manual Testing
+             - predict_transaction() function
+             - Test with real sample from test set
+             - Test with known fraud transaction
+             - Test with custom input values
+
+
+--------------------------------------------------------------
+ 🧪 MANUAL TESTING FUNCTION
+--------------------------------------------------------------
+  After training, use this function to predict any transaction:
+
+    def predict_transaction(input_data):
+        # input_data : list of 30 feature values
+        # returns    : "FRAUD" or "Not Fraud"
+        # also shows : Fraud Probability %
+
+  Example Usage:
+    sample = X_test.iloc[0].values
+    predict_transaction(sample)
+
+    custom_input = [0.0, -1.35, -0.07, 2.53, ...]  # 30 values
+    predict_transaction(custom_input)
+
+
+--------------------------------------------------------------
+ 📊 MODEL PERFORMANCE (Expected Results)
+--------------------------------------------------------------
+  Model        : Logistic Regression
+  class_weight : balanced
+  Test size    : 20% of dataset
+
+  Typical Results:
+    Accuracy        : ~97–98%
+    Fraud Recall    : ~90–92%   ← Most important metric!
+    Fraud Precision : ~5–10%    (expected due to imbalance)
+    Fraud F1-Score  : ~0.10–0.18
+
+  NOTE: Accuracy alone is misleading on imbalanced data.
+        Focus on RECALL for fraud class — we want to catch
+        as many real frauds as possible!
+
+
+
+--------------------------------------------------------------
+ 📎 REFERENCES
+--------------------------------------------------------------
+  Dataset : https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+  sklearn : https://scikit-learn.org/stable/
+  pandas  : https://pandas.pydata.org/docs/
+  numpy   : https://numpy.org/doc/
+
+
+--------------------------------------------------------------
+ 📝 NOTES
+--------------------------------------------------------------
+  - No SMOTE or oversampling used (kept simple)
+  - No advanced models (Random Forest, XGBoost, etc.)
+  - No web UI or Flask app
+  - Designed for beginners and college-level demonstrations
+  - Entire notebook runs in under 2 minutes on a normal laptop
+
+
